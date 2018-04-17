@@ -3,7 +3,49 @@ grammar org.xtext.example.mydsl.MyDsl with org.eclipse.xtext.common.Terminals
 generate myDsl "http://www.xtext.org/example/mydsl/MyDsl"
 
 Model:
-	greetings+=Greeting*;
+	compute=Compute;
 	
-Greeting:
-	'Hello' name=ID '!';
+Compute:
+	'(define' Parametro ')'
+;
+
+Parametro:
+	'(' exp=expressao var=variavel ')'
+;
+
+//If:
+//	'( if' Comparacao name=variavel ')' name=resultado '(' name=sinal '(' Recursivo
+//;
+
+Recursivo:
+	'(' name=expressao '(' name=sinal name=variavel name=variavel')' ')'
+;
+
+Comparacao:
+	'(' name=sinal name=variavel name=variavel')'
+;
+
+
+expressao:
+	letters
+;
+
+terminal resultado:
+	letters | digit
+;
+
+variavel:
+	letters | digit
+;
+
+terminal sinal:
+	('>' |'<'| '+' | '-' | '*' | '/')
+;
+
+terminal digit:
+	('0'..'9')*
+;
+
+terminal letters:
+	('a'..'z')*
+;
